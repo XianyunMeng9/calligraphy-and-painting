@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国书画中的数学与比例 - 数据可视化作品</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>中国书画中的数学与比例</h1>
+            <p class="subtitle">探索传统山水画构图中的几何美学</p>
+        </header>
+
+        <section class="intro">
+            <p>中国书画艺术源远流长，其构图布局中蕴含着丰富的数学原理与比例关系。本可视化作品通过分析多幅经典山水画作，揭示其中隐藏的几何规律，特别是黄金分割比例的应用。</p>
+        </section>
+
+        <div class="dashboard">
+            <div class="chart-container">
+                <div class="chart" id="goldenRatioChart">
+                    <div class="chart-title">山水画中的黄金分割分析</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart" id="compositionChart">
+                    <div class="chart-title">不同朝代山水画构图特点</div>
+                </div>
+            </div>
+            
+            <div class="chart-container full-width">
+                <div class="chart" id="paintingAnalysis">
+                    <div class="chart-title">经典画作构图分析</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart" id="elementDistribution">
+                    <div class="chart-title">画面元素分布分析</div>
+                </div>
+            </div>
+            
+            <div class="chart-container">
+                <div class="chart" id="dynastyComparison">
+                    <div class="chart-title">各朝代画作比例特征</div>
+                </div>
+            </div>
+        </div>
+
+        <section class="data-source">
+            <h2>数据来源说明</h2>
+            <ul>
+                <li>故宫博物院开放数据 - 获取高清画作图像及元数据</li>
+                <li>中国国家图书馆古籍资源库 - 查阅相关艺术理论文献</li>
+                <li>学术论文数据库 - 分析前人研究成果</li>
+            </ul>
+        </section>
+
+        <section class="methodology">
+            <h2>研究方法</h2>
+            <p>本研究选取了宋、元、明、清四个朝代的代表性山水画作，通过图像分析技术提取画面中的关键元素位置，计算其与黄金分割点(约0.618)的接近程度，分析不同朝代画家的构图偏好。</p>
+        </section>
+
+        <footer>
+            <p>© 2025 数据可视化设计大赛参赛作品 | 中国书画中的数学与比例</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
