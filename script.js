@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化交互功能
     initNavIndicator();
-    initChartTools();
-    initScrollObserver(); // 添加滚动监听初始化
+    initChartTools(); // 保留其他图表的工具功能
+    initScrollObserver();
 });
 
 // 黄金分割分析图表
@@ -543,7 +543,7 @@ function scrollToSection(sectionId) {
     }
 }
 
-// 图表工具按钮功能
+// 图表工具按钮功能 - 保留其他图表的工具功能
 function initChartTools() {
     document.querySelectorAll('.tool-btn').forEach(btn => {
         btn.addEventListener('click', function() {
