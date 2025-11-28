@@ -10,11 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化交互功能
     initNavIndicator();
     initChartTools();
+    initScrollObserver(); // 添加滚动监听初始化
 });
 
 // 黄金分割分析图表
 function initGoldenRatioChart() {
     const chartDom = document.getElementById('goldenRatioChart');
+    if (!chartDom) return;
+    
     const myChart = echarts.init(chartDom);
     
     const option = {
@@ -110,6 +113,8 @@ function initGoldenRatioChart() {
 // 构图特点图表
 function initCompositionChart() {
     const chartDom = document.getElementById('compositionChart');
+    if (!chartDom) return;
+    
     const myChart = echarts.init(chartDom);
     
     const option = {
@@ -171,6 +176,8 @@ function initCompositionChart() {
 // 经典画作分析图表
 function initPaintingAnalysis() {
     const chartDom = document.getElementById('paintingAnalysis');
+    if (!chartDom) return;
+    
     const myChart = echarts.init(chartDom);
     
     const option = {
@@ -282,6 +289,8 @@ function initPaintingAnalysis() {
 // 元素分布分析图表
 function initElementDistribution() {
     const chartDom = document.getElementById('elementDistribution');
+    if (!chartDom) return;
+    
     const myChart = echarts.init(chartDom);
     
     const option = {
@@ -389,6 +398,8 @@ function initElementDistribution() {
 // 朝代对比图表
 function initDynastyComparison() {
     const chartDom = document.getElementById('dynastyComparison');
+    if (!chartDom) return;
+    
     const myChart = echarts.init(chartDom);
     
     const option = {
@@ -537,6 +548,8 @@ function initChartTools() {
     document.querySelectorAll('.tool-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const chartContainer = this.closest('.chart-container');
+            if (!chartContainer) return;
+            
             const chart = chartContainer.querySelector('.chart');
             
             if (this.textContent === '🔍') {
@@ -565,7 +578,10 @@ function initChartTools() {
 
 function resetChart(chartId) {
     // 根据图表ID重置对应的图表
-    const chart = echarts.getInstanceByDom(document.getElementById(chartId));
+    const chartDom = document.getElementById(chartId);
+    if (!chartDom) return;
+    
+    const chart = echarts.getInstanceByDom(chartDom);
     if (chart) {
         chart.clear();
         // 重新初始化图表
@@ -596,6 +612,12 @@ function initScrollObserver() {
         analysis: document.querySelector('.dashboard'),
         comparison: document.querySelector('.methodology')
     };
+    
+    // 检查所有必要的元素是否存在
+    if (!sections.intro || !sections.analysis || !sections.comparison) {
+        console.warn('某些页面元素未找到，滚动监听可能无法正常工作');
+        return;
+    }
     
     const observerOptions = {
         root: null,
@@ -630,20 +652,6 @@ function updateActiveIndicator(sectionId) {
         }
     });
 }
-
-// 初始化所有图表
-document.addEventListener('DOMContentLoaded', function() {
-    // 初始化图表
-    initGoldenRatioChart();
-    initCompositionChart();
-    initPaintingAnalysis();
-    initElementDistribution();
-    initDynastyComparison();
-    
-    // 初始化交互功能
-    initNavIndicator();
-    initChartTools();
-});
 
 // 导出数据功能
 function initExportFunction() {
