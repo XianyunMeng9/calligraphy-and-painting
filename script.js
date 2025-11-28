@@ -1,19 +1,15 @@
 // 初始化所有图表
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化黄金分割分析图表
+    // 初始化图表
     initGoldenRatioChart();
-    
-    // 初始化构图特点图表
     initCompositionChart();
-    
-    // 初始化经典画作分析图表
     initPaintingAnalysis();
-    
-    // 初始化元素分布图表
     initElementDistribution();
-    
-    // 初始化朝代对比图表
     initDynastyComparison();
+    
+    // 初始化交互功能
+    initNavIndicator();
+    initChartTools();
 });
 
 // 黄金分割分析图表
@@ -26,6 +22,13 @@ function initGoldenRatioChart() {
             trigger: 'axis',
             axisPointer: {
                 type: 'shadow'
+            },
+            formatter: function(params) {
+                let result = params[0].name + '<br/>';
+                params.forEach(item => {
+                    result += item.marker + item.seriesName + ': ' + item.value + '%<br/>';
+                });
+                return result;
             }
         },
         legend: {
@@ -69,6 +72,11 @@ function initGoldenRatioChart() {
                 data: [78, 65, 72, 60],
                 itemStyle: {
                     color: '#8c2318'
+                },
+                label: {
+                    show: true,
+                    position: 'inside',
+                    formatter: '{c}%'
                 }
             },
             {
@@ -81,6 +89,11 @@ function initGoldenRatioChart() {
                 data: [22, 35, 28, 40],
                 itemStyle: {
                     color: '#d4b78c'
+                },
+                label: {
+                    show: true,
+                    position: 'inside',
+                    formatter: '{c}%'
                 }
             }
         ]
@@ -101,7 +114,8 @@ function initCompositionChart() {
     
     const option = {
         tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         legend: {
             top: '5%',
@@ -230,6 +244,11 @@ function initPaintingAnalysis() {
                 data: [85, 78, 92, 65, 80],
                 itemStyle: {
                     color: '#8c2318'
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}%'
                 }
             },
             {
@@ -242,6 +261,11 @@ function initPaintingAnalysis() {
                 },
                 lineStyle: {
                     width: 3
+                },
+                label: {
+                    show: true,
+                    position: 'top',
+                    formatter: '{c}'
                 }
             }
         ]
@@ -263,6 +287,13 @@ function initElementDistribution() {
     const option = {
         tooltip: {
             trigger: 'item'
+        },
+        legend: {
+            data: ['宋代', '元代'],
+            bottom: 10,
+            textStyle: {
+                fontSize: 12
+            }
         },
         radar: {
             indicator: [
@@ -402,7 +433,9 @@ function initDynastyComparison() {
                 type: 'bar',
                 stack: 'total',
                 label: {
-                    show: true
+                    show: true,
+                    position: 'insideRight',
+                    formatter: '{c}%'
                 },
                 emphasis: {
                     focus: 'series'
@@ -417,7 +450,9 @@ function initDynastyComparison() {
                 type: 'bar',
                 stack: 'total',
                 label: {
-                    show: true
+                    show: true,
+                    position: 'insideRight',
+                    formatter: '{c}%'
                 },
                 emphasis: {
                     focus: 'series'
@@ -432,7 +467,9 @@ function initDynastyComparison() {
                 type: 'bar',
                 stack: 'total',
                 label: {
-                    show: true
+                    show: true,
+                    position: 'insideRight',
+                    formatter: '{c}%'
                 },
                 emphasis: {
                     focus: 'series'
@@ -451,4 +488,157 @@ function initDynastyComparison() {
     window.addEventListener('resize', function() {
         myChart.resize();
     });
+}
+
+// 导航指示器交互
+function initNavIndicator() {
+    const indicators = document.querySelectorAll('.indicator-item');
+    
+    indicators.forEach(indicator => {
+        indicator.addEventListener('click', function() {
+            // 移除所有active状态
+            indicators.forEach(item => item.classList.remove('active'));
+            // 添加当前active状态
+            this.classList.add('active');
+            
+            // 获取目标区域
+            const target = this.getAttribute('data-target');
+            scrollToSection(target);
+        });
+    });
+}
+
+function scrollToSection(sectionId) {
+    let targetElement;
+    switch(sectionId) {
+        case 'intro':
+            targetElement = document.querySelector('.intro');
+            break;
+        case 'analysis':
+            targetElement = document.querySelector('.dashboard');
+            break;
+        case 'comparison':
+            targetElement = document.querySelector('.methodology');
+            break;
+        default:
+            return;
+    }
+    
+    if (targetElement) {
+        targetElement.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+// 图表工具按钮功能
+function initChartTools() {
+    document.querySelectorAll('.tool-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const chartContainer = this.closest('.chart-container');
+            const chart = chartContainer.querySelector('.chart');
+            
+            if (this.textContent === '🔍') {
+                // 放大功能
+                chartContainer.classList.toggle('zoomed');
+                if (chartContainer.classList.contains('zoomed')) {
+                    this.textContent = '📋';
+                    this.title = '缩小查看';
+                } else {
+                    this.textContent = '🔍';
+                    this.title = '放大查看';
+                }
+            } else if (this.textContent === '↺') {
+                // 重置功能
+                const chartId = chart.id;
+                resetChart(chartId);
+            } else if (this.textContent === '📋') {
+                // 缩小功能
+                chartContainer.classList.remove('zoomed');
+                this.textContent = '🔍';
+                this.title = '放大查看';
+            }
+        });
+    });
+}
+
+function resetChart(chartId) {
+    // 根据图表ID重置对应的图表
+    const chart = echarts.getInstanceByDom(document.getElementById(chartId));
+    if (chart) {
+        chart.clear();
+        // 重新初始化图表
+        switch(chartId) {
+            case 'goldenRatioChart':
+                initGoldenRatioChart();
+                break;
+            case 'compositionChart':
+                initCompositionChart();
+                break;
+            case 'paintingAnalysis':
+                initPaintingAnalysis();
+                break;
+            case 'elementDistribution':
+                initElementDistribution();
+                break;
+            case 'dynastyComparison':
+                initDynastyComparison();
+                break;
+        }
+    }
+}
+
+// 滚动监听 - 更新导航指示器状态
+function initScrollObserver() {
+    const sections = {
+        intro: document.querySelector('.intro'),
+        analysis: document.querySelector('.dashboard'),
+        comparison: document.querySelector('.methodology')
+    };
+    
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = Object.keys(sections).find(
+                    key => sections[key] === entry.target
+                );
+                if (sectionId) {
+                    updateActiveIndicator(sectionId);
+                }
+            }
+        });
+    }, observerOptions);
+    
+    Object.values(sections).forEach(section => {
+        if (section) observer.observe(section);
+    });
+}
+
+function updateActiveIndicator(sectionId) {
+    const indicators = document.querySelectorAll('.indicator-item');
+    indicators.forEach(indicator => {
+        indicator.classList.remove('active');
+        if (indicator.getAttribute('data-target') === sectionId) {
+            indicator.classList.add('active');
+        }
+    });
+}
+
+// 初始化滚动监听
+document.addEventListener('DOMContentLoaded', function() {
+    // 原有的初始化代码...
+    initScrollObserver();
+});
+
+// 导出数据功能
+function initExportFunction() {
+    // 可以添加数据导出功能
+    console.log('数据导出功能已准备就绪');
 }

@@ -122,17 +122,163 @@ footer {
     font-size: 0.9rem;
 }
 
-/* 响应式设计 */
+/* 头部装饰线样式 */
+.decoration-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.line-segment {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #8c2318, transparent);
+}
+
+.chinese-knot {
+    margin: 0 20px;
+    font-size: 1.5rem;
+    color: #8c2318;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* 图表头部优化 */
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.chart-tools {
+    display: flex;
+    gap: 8px;
+}
+
+.tool-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.tool-btn:hover {
+    background: #f0f0f0;
+    border-color: #8c2318;
+}
+
+.chart-footer {
+    margin-top: 10px;
+    text-align: right;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* 导航指示器 */
+.nav-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 25px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.indicator-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.indicator-item.active {
+    background: #8c2318;
+    color: white;
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+.indicator-item:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+.indicator-icon {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.indicator-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* 图表悬停效果增强 */
+.chart-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.chart-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(140, 35, 24, 0.05), transparent);
+    transition: left 0.5s ease;
+}
+
+.chart-container:hover::before {
+    left: 100%;
+}
+
+/* 响应式优化 */
 @media (max-width: 768px) {
-    .dashboard {
-        grid-template-columns: 1fr;
+    .nav-indicator {
+        gap: 10px;
+        padding: 10px;
     }
     
-    h1 {
-        font-size: 2rem;
+    .indicator-item {
+        padding: 8px 15px;
     }
     
-    .chart {
-        height: 300px;
+    .indicator-text {
+        font-size: 0.8rem;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .decoration-line {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .line-segment {
+        width: 2px;
+        height: 40px;
     }
 }

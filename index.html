@@ -10,18 +10,43 @@
 <body>
     <div class="container">
         <header>
+            <div class="header-content">
             <h1>中国书画中的数学与比例</h1>
             <p class="subtitle">探索传统山水画构图中的几何美学</p>
+            </div>
         </header>
 
         <section class="intro">
             <p>中国书画艺术源远流长，其构图布局中蕴含着丰富的数学原理与比例关系。本可视化作品通过分析多幅经典山水画作，揭示其中隐藏的几何规律，特别是黄金分割比例的应用。</p>
         </section>
 
+        <div class="nav-indicator">
+            <div class="indicator-item active" data-target="intro">
+                <span class="indicator-icon">📊</span>
+                <span class="indicator-text">数据概览</span>
+            </div>
+            <div class="indicator-item" data-target="analysis">
+                <span class="indicator-icon">🔍</span>
+                <span class="indicator-text">深度分析</span>
+            </div>
+            <div class="indicator-item" data-target="comparison">
+                <span class="indicator-icon">⚖️</span>
+                <span class="indicator-text">对比研究</span>
+            </div>
+        </div>
+
         <div class="dashboard">
             <div class="chart-container">
-                <div class="chart" id="goldenRatioChart">
+                <div class="chart-header">
                     <div class="chart-title">山水画中的黄金分割分析</div>
+                    <div class="chart-tools">
+                        <button class="tool-btn" title="放大查看">🔍</button>
+                        <button class="tool-btn" title="重置视图">↺</button>
+                    </div>
+                    </div>
+                    <div class="chart" id="goldenRatioChart"></div>
+                    <div class="chart-footer">
+                        <span class="data-note">数据来源：故宫博物院开放数据</span>
                 </div>
             </div>
             
