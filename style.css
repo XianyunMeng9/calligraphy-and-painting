@@ -188,16 +188,22 @@ footer {
     color: #666;
 }
 
-/* 导航指示器 */
+/* 导航指示器 - 响应式优化 */
 .nav-indicator {
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 20px;
     margin: 25px 0;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 50px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .indicator-item {
@@ -205,10 +211,13 @@ footer {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border-radius: 25px;
     transition: all 0.3s ease;
-    opacity: 0.6;
+    opacity: 0.7;
+    min-width: 100px;
+    text-align: center;
+    border: 1px solid transparent;
 }
 
 .indicator-item.active {
@@ -216,16 +225,18 @@ footer {
     color: white;
     opacity: 1;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(140, 35, 24, 0.3);
 }
 
 .indicator-item:hover {
-    opacity: 0.8;
+    opacity: 0.9;
     transform: translateY(-1px);
+    border-color: #8c2318;
 }
 
 .indicator-icon {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
+    font-size: 1.4rem;
+    margin-bottom: 8px;
 }
 
 .indicator-text {
@@ -249,37 +260,112 @@ footer {
     left: 100%;
 }
 
-/* 放大查看样式 */
+/* 放大查看样式 - 响应式优化 */
 .chart-container.zoomed {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90vw;
-    height: 90vh;
+    width: 95vw;
+    height: 95vh;
     z-index: 1000;
     background: white;
     padding: 20px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
 }
 
 .chart-container.zoomed .chart {
     height: calc(100% - 60px);
 }
 
-/* 响应式优化 */
-@media (max-width: 768px) {
+/* 响应式优化 - 大幅改进 */
+@media (max-width: 1024px) {
+    .container {
+        padding: 15px;
+    }
+    
     .dashboard {
         grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .chart {
+        height: 350px;
     }
     
     .nav-indicator {
-        gap: 10px;
-        padding: 10px;
+        gap: 15px;
+        padding: 12px;
+        border-radius: 25px;
+        margin: 20px 0;
     }
     
     .indicator-item {
-        padding: 8px 15px;
+        padding: 10px 15px;
+        min-width: 90px;
+    }
+    
+    .indicator-icon {
+        font-size: 1.2rem;
+        margin-bottom: 6px;
+    }
+    
+    .indicator-text {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .dashboard {
+        gap: 12px;
+    }
+    
+    .chart-container {
+        padding: 12px;
+    }
+    
+    .chart {
+        height: 300px;
+    }
+    
+    .chart-title {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+    
+    .nav-indicator {
+        flex-direction: row;
+        gap: 8px;
+        padding: 10px;
+        border-radius: 20px;
+        margin: 15px 0;
+        position: relative;
+        top: 0;
+    }
+    
+    .indicator-item {
+        flex: 1;
+        min-width: auto;
+        padding: 8px 12px;
+        border-radius: 15px;
+    }
+    
+    .indicator-icon {
+        font-size: 1.1rem;
+        margin-bottom: 4px;
     }
     
     .indicator-text {
@@ -292,21 +378,116 @@ footer {
         align-items: flex-start;
     }
     
-    .decoration-line {
-        flex-direction: column;
-        gap: 10px;
+    .chart-tools {
+        align-self: flex-end;
     }
     
-    .line-segment {
-        width: 2px;
-        height: 40px;
+    .intro p {
+        font-size: 1rem;
+        text-indent: 1.5em;
     }
     
+    .data-source, .methodology {
+        padding: 15px;
+    }
+    
+    h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
     h1 {
-        font-size: 2rem;
+        font-size: 1.5rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
     }
     
     .chart {
-        height: 300px;
+        height: 250px;
+    }
+    
+    .nav-indicator {
+        gap: 5px;
+        padding: 8px;
+        border-radius: 15px;
+    }
+    
+    .indicator-item {
+        padding: 6px 8px;
+        border-radius: 12px;
+    }
+    
+    .indicator-icon {
+        font-size: 1rem;
+        margin-bottom: 2px;
+    }
+    
+    .indicator-text {
+        font-size: 0.75rem;
+    }
+    
+    .chart-container.zoomed {
+        width: 98vw;
+        height: 98vh;
+        padding: 15px;
+    }
+    
+    .chart-container.zoomed .chart {
+        height: calc(100% - 50px);
+    }
+    
+    .tool-btn {
+        padding: 3px 6px;
+        font-size: 0.8rem;
+    }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    .chart-container:hover {
+        transform: none;
+    }
+    
+    .indicator-item:hover {
+        transform: none;
+        border-color: transparent;
+    }
+    
+    .indicator-item.active {
+        transform: scale(1.05);
+    }
+    
+    .tool-btn {
+        min-height: 32px;
+        min-width: 32px;
+    }
+}
+
+/* 高分辨率屏幕优化 */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1300px;
+    }
+    
+    .chart {
+        height: 450px;
+    }
+}
+
+/* 打印样式优化 */
+@media print {
+    .nav-indicator,
+    .chart-tools,
+    .tool-btn {
+        display: none;
+    }
+    
+    .chart-container {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
     }
 }
