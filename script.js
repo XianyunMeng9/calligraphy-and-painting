@@ -631,10 +631,18 @@ function updateActiveIndicator(sectionId) {
     });
 }
 
-// 初始化滚动监听
+// 初始化所有图表
 document.addEventListener('DOMContentLoaded', function() {
-    // 原有的初始化代码...
-    initScrollObserver();
+    // 初始化图表
+    initGoldenRatioChart();
+    initCompositionChart();
+    initPaintingAnalysis();
+    initElementDistribution();
+    initDynastyComparison();
+    
+    // 初始化交互功能
+    initNavIndicator();
+    initChartTools();
 });
 
 // 导出数据功能
